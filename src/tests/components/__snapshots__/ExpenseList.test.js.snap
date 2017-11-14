@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExpenseList /> should render no items message if no expenses 1`] = `
+<div>
+  <p>
+    Add an expense to get started
+  </p>
+</div>
+`;
+
+exports[`<ExpenseList /> should render the list of expenses correctly 1`] = `
+<div>
+  <ExpenseListItem
+    expense={
+      Object {
+        "amount": 50,
+        "createdAt": 345600000,
+        "description": "rent",
+        "id": 1,
+        "note": "",
+      }
+    }
+    key="1"
+  />
+  <ExpenseListItem
+    expense={
+      Object {
+        "amount": 40,
+        "createdAt": 0,
+        "description": "water bill",
+        "id": 2,
+        "note": "",
+      }
+    }
+    key="2"
+  />
+  <ExpenseListItem
+    expense={
+      Object {
+        "amount": 500,
+        "createdAt": -345600000,
+        "description": "gas bill",
+        "id": 3,
+        "note": "",
+      }
+    }
+    key="3"
+  />
+</div>
+`;
