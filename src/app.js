@@ -13,7 +13,8 @@ import 'react-dates/lib/css/_datepicker.css';
 
 import * as expenseActions from './actions/expenses';
 import * as filterActions from './actions/filters';
-import getVisibleExpenses from './selectors/expenses'
+import getVisibleExpenses from './selectors/expenses';
+import './firebase/firebase';
 
 const store = configureStore();
 

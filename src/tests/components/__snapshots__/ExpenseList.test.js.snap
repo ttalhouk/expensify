@@ -16,7 +16,7 @@ exports[`<ExpenseList /> should render the list of expenses correctly 1`] = `
         "amount": 50,
         "createdAt": 345600000,
         "description": "rent",
-        "id": 1,
+        "id": "1",
         "note": "",
       }
     }
@@ -28,7 +28,7 @@ exports[`<ExpenseList /> should render the list of expenses correctly 1`] = `
         "amount": 40,
         "createdAt": 0,
         "description": "water bill",
-        "id": 2,
+        "id": "2",
         "note": "",
       }
     }
@@ -40,7 +40,7 @@ exports[`<ExpenseList /> should render the list of expenses correctly 1`] = `
         "amount": 500,
         "createdAt": -345600000,
         "description": "gas bill",
-        "id": 3,
+        "id": "3",
         "note": "",
       }
     }

@@ -12,7 +12,7 @@ exports[`<EditExpensePage /> should render the page correctly 1`] = `
         "amount": 40,
         "createdAt": 0,
         "description": "water bill",
-        "id": 2,
+        "id": "2",
         "note": "",
       }
     }
