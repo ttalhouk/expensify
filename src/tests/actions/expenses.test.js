@@ -29,6 +29,7 @@ describe('Action generators for expense', () => {
       type: 'REMOVE_EXPENSE',
       id
     });
+
   });
   it('should call edit expense generator with the id and updates', () => {
     const id = 1
@@ -125,7 +126,22 @@ describe('Action generators for expense', () => {
         expenses
       });
       done();
-    })
-  })
+    });
+  });
+  it('should remove data by id from database and call removeExpense on startRemoveExpenses', (done) => {
+    const store = createMockStore({});
+    const id = expenses[1].id
+    store.dispatch(actions.startRemoveExpense({id})).then(() => {
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual({
+        type: 'REMOVE_EXPENSE',
+        id
+      });
+      return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+      expect(snapshot.val()).toBeFalsy();
+      done();
+    });
+  });
 
 });

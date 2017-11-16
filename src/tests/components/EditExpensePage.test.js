@@ -12,7 +12,7 @@ describe("<EditExpensePage />", () => {
     expense = expenses[1]
     onSubmitSpy = jest.fn();
     onRemoveSpy = jest.fn()
-    wrapper = shallow(<EditExpensePage expense={expense} history={history} editExpense={onSubmitSpy} removeExpense={onRemoveSpy}/>);
+    wrapper = shallow(<EditExpensePage expense={expense} history={history} editExpense={onSubmitSpy} startRemoveExpense={onRemoveSpy}/>);
   })
   it('should render the page correctly', () => {
     expect(wrapper).toMatchSnapshot()
