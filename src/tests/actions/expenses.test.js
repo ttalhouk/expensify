@@ -143,5 +143,30 @@ describe('Action generators for expense', () => {
       done();
     });
   });
+  it('should update data by id and updates in database and call editExpense on startEditExpenses', (done) => {
+    const store = createMockStore({});
+    const id = expenses[1].id;
+    const updates = {description: 'new test description'}
+    store.dispatch(actions.startEditExpense(id, updates)).then(() => {
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual({
+        type: 'EDIT_EXPENSE',
+        id,
+        updates
+      });
+      return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+      const {description, note, amount, createdAt} = expenses[1]
+      const updatedExpense = {
+        description,
+        note,
+        amount,
+        createdAt,
+        ...updates
+      }
+      expect(snapshot.val()).toEqual(updatedExpense);
+      done();
+    });
+  });
 
 });
