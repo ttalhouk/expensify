@@ -13,19 +13,3 @@ firebase.initializeApp(config);
 const database = firebase.database();
 
 export {firebase, database as default};
-// database.ref().set({
-//   name: "Talal Talhouk",
-//   isSingle: false,
-//   age: 38,
-//   location: {
-//     city: 'Sunnyvale'
-//   }
-// });
-//
-// database.ref('isSingle').remove()
-//   .then(() => {
-//     console.log('removed isSingle');
-//   })
-//   .catch((e) => {
-//     console.log('oops', e);
-//   })
