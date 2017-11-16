@@ -63,4 +63,19 @@ describe('expensesReducer', () => {
     });
     expect(state).toEqual(initialState);
   });
+  it('should set expenses state when set expenses action is called', () => {
+    const initialState = [{
+      id: 'dsjas',
+      description: 'should be removed',
+      amount: '50',
+      note: 'bye-bye',
+      createdAt: 50
+    }]
+    const state = expensesReducer(initialState, {
+      type: 'SET_EXPENSES',
+      expenses
+    })
+    expect(state).toEqual(expenses);
+  });
+
 });

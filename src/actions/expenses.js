@@ -24,7 +24,6 @@ export const startAddExpense = (expenseData = {}) => {
       createdAt
     }
     return database.ref('expenses').push(expense).then((ref) => {
-      console.log(ref);
       dispatch(addExpense({
         id: ref.key,
         ...expense
@@ -49,4 +48,29 @@ export const editExpense = (id, updates) => {
       updates
     }
   )
+}
+
+export const setExpenses = (expenses) => {
+  return {
+    type: 'SET_EXPENSES',
+    expenses
+  }
+}
+
+export const startSetExpenses = () => {
+  return (dispatch) => {
+    return database.ref('expenses').once('value')
+      .then((snapshot) => {
+        const expenses = [];
+        snapshot.forEach((expense) => {
+            expenses.push({
+              id: expense.key,
+              ...expense.val()
+            })
+          });
+        dispatch(setExpenses(expenses));
+      }).catch((error) => {
+        console.log(error);
+      });
+  }
 }

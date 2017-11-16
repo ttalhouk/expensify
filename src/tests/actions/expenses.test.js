@@ -9,6 +9,19 @@ const createMockStore = configureMockStore([thunk]);
 
 
 describe('Action generators for expense', () => {
+  beforeEach((done) => {
+    const expensesData = {};
+    expenses.forEach((expense) => {
+      expensesData[expense.id] = {
+        description: expense.description,
+        amount: expense.amount,
+        note: expense.note,
+        createdAt: expense.createdAt
+      }
+    })
+
+    database.ref('expenses').set(expensesData).then(() => done());
+  })
   it('should return remove expense generator with the id', () => {
     const id = 1
     const result = actions.removeExpense({id});
@@ -52,15 +65,15 @@ describe('Action generators for expense', () => {
       createdAt: 202002022002
     }
     store.dispatch(actions.startAddExpense(expenseData)).then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual({
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual({
         type: 'ADD_EXPENSE',
         expense: {
           id: expect.any(String),
           ...expenseData
         }
       });
-      return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+      return database.ref(`expenses/${storeActions[0].expense.id}`).once('value');
     })
       .then((snapshot) => {
         expect(snapshot.val()).toEqual(expenseData);
@@ -77,8 +90,8 @@ describe('Action generators for expense', () => {
       createdAt: 0
     };
     store.dispatch(actions.startAddExpense({})).then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual(
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual(
         {
           type: 'ADD_EXPENSE',
           expense: {
@@ -87,23 +100,32 @@ describe('Action generators for expense', () => {
           }
         }
       );
-      return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+      return database.ref(`expenses/${storeActions[0].expense.id}`).once('value');
     })
       .then((snapshot) => {
         expect(snapshot.val()).toEqual(defaultExpense);
         done();
       });
   });
-  // it('should return the action generator for addExpense with default expense object', () => {
-  //   const result = actions.addExpense();
-  //   expect(result).toEqual({
-  //     type: 'ADD_EXPENSE',
-  //     expense: {
-  //       description: '',
-  //       note: '',
-  //       amount: 0,
-  //       createdAt: 0,
-  //       id: expect.any(String)}
-  //   });
-  // });
-})
+
+  it('should return the action generator for setExpense with expense objects array', () => {
+    const action = actions.setExpenses(expenses);
+    expect(action).toEqual({
+      type: 'SET_EXPENSES',
+      expenses
+    });
+  });
+
+  it('should fetch data from database and call setExpense on startSetExpenses', (done) => {
+    const store = createMockStore({});
+    store.dispatch(actions.startSetExpenses()).then(() => {
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual({
+        type: 'SET_EXPENSES',
+        expenses
+      });
+      done();
+    })
+  })
+
+});
