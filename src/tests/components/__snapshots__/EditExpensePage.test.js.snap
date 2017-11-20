@@ -2,26 +2,43 @@
 
 exports[`<EditExpensePage /> should render the page correctly 1`] = `
 <div>
-  <h1>
-    Edit Expense 
-    water bill
-  </h1>
-  <ExpenseForm
-    expense={
-      Object {
-        "amount": 40,
-        "createdAt": 0,
-        "description": "water bill",
-        "id": "2",
-        "note": "",
-      }
-    }
-    onSubmit={[Function]}
-  />
-  <button
-    onClick={[Function]}
+  <div
+    className="page-header"
   >
-    Remove
-  </button>
+    <div
+      className="content-container"
+    >
+      <h1
+        className="page-header__title"
+      >
+        Edit Expense 
+        <span>
+          water bill
+        </span>
+      </h1>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
+    <ExpenseForm
+      expense={
+        Object {
+          "amount": 40,
+          "createdAt": 0,
+          "description": "water bill",
+          "id": "2",
+          "note": "",
+        }
+      }
+      onSubmit={[Function]}
+    />
+    <button
+      className="button button--remove"
+      onClick={[Function]}
+    >
+      Remove Expense
+    </button>
+  </div>
 </div>
 `;
